@@ -1,7 +1,8 @@
+import AppRouter from './components/AppRouter';
 function App() {
   return (
     <div className="App">
-      <h1>app firebase-blog</h1>
+      <AppRouter />
     </div>
   );
 }
