@@ -2,15 +2,15 @@ import firebase from 'firebase';
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: 'AIzaSyCUnSIre_YiTRESmArECpScAH1CoLOba5Y',
-  authDomain: 'test-blog-1-f93be.firebaseapp.com',
-  databaseURL: 'https://test-blog-1-f93be-default-rtdb.firebaseio.com',
-  projectId: 'test-blog-1-f93be',
-  storageBucket: 'test-blog-1-f93be.appspot.com',
-  messagingSenderId: '77066225679',
-  appId: '1:77066225679:web:3929969b249e0fa82bbb7a',
+  apiKey: 'AIzaSyDmrtYU5A-9JtFB8gRCSNLdR3ClO_URCYM',
+  authDomain: 'blog-firebase-4df33.firebaseapp.com',
+  projectId: 'blog-firebase-4df33',
+  storageBucket: 'blog-firebase-4df33.appspot.com',
+  messagingSenderId: '582573498636',
+  appId: '1:582573498636:web:f8249dc6f79534dfd7a929',
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
+export const firestore = firebase.firestore();
