@@ -6,7 +6,7 @@ import {registerUser} from './../../store/actions/authActions'
 const SignUp = () => { 
    const [lastName, setLastName] = useState('');
    const [email, setEmail] = useState('');
-   const [pass, setPass] = useState('');
+   const [password, setPassword] = useState('');
 
    const dispatch = useDispatch()
    const user = useSelector((state) => state.authReducer.user);
@@ -14,17 +14,17 @@ const SignUp = () => {
   
     const registration = (e) => {
       e.preventDefault();
-      dispatch(registerUser(email, pass, lastName))
+      dispatch(registerUser(email, password, lastName))
       
     };
 
    return (
       <div>
-         <h3>SignUp</h3>
+         <h3>SignUp регистрация</h3>
          <form action="">
             <input onChange={(e) => setLastName(e.target.value)} type="text" placeholder="name" />
             <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" />
-            <input onChange={(e) => setPass(e.target.value)} type="text" placeholder="pass" />
+            <input onChange={(e) => setPassword(e.target.value)} type="text" placeholder="pass" />
             <button onClick={registration}>зарегистрироваться</button>
          </form>
 
