@@ -9,6 +9,39 @@ export const setUserAC = (payload) => {
   };
 };
 
+export const getCurrentUserFromAuth = () => {
+  return (dispatch) => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        const id = user.uid;
+        console.log(id);
+        // ...
+        firestore
+          .collection('users')
+          .doc(id)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              const userInfo = doc.data();
+              console.log('Document data:', userInfo);
+              dispatch(setUserAC(userInfo));
+            } else {
+              // doc.data() will be undefined in this case
+              console.log('No such document!');
+            }
+          })
+          .catch((error) => {
+            console.log('Error getting document:', error);
+          });
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  };
+};
+
 export const registerUser = (email, pass, lastName) => {
   return (dispatch) => {
     auth
