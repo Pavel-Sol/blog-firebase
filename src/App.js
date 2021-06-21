@@ -9,7 +9,6 @@ import MainPreloader from './components/MainPreloader/MainPreloader';
 function App() {
   const dispatch = useDispatch();
   const isMainPreloader = useSelector((state) => state.authReducer.isMainPreloader);
-  // console.log(isMainPreloader);
 
   useEffect(() => {
     // проверяем есть ли текущий юзер в  системе

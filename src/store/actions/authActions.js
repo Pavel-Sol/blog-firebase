@@ -118,3 +118,18 @@ export const authorizeUser = (email, password) => {
       });
   };
 };
+
+export const logUserOut = () => {
+  return (dispatch) => {
+    auth
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+        console.log('user out');
+        dispatch(setUserAC(null));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
