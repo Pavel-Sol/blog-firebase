@@ -1,5 +1,6 @@
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css';
+import './Navbar.css'
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +21,6 @@ const Navbar = () => {
 
 
     const logOut = () => {
-      console.log('work')
       dispatch(logUserOut())
     }
 
@@ -28,7 +28,7 @@ const Navbar = () => {
      <div>
        {
           user
-          ? <ul id="dropdown1" className="dropdown-content">
+          ? <ul id="dropdown1" className="dropdown-content _dropdown">
               <li><Link to='/'>главная</Link></li>
               <li className="divider"></li>
               <li><Link to='/profile'>мой профиль</Link></li>
@@ -42,12 +42,16 @@ const Navbar = () => {
       
        <nav>
         <div className="nav-wrapper">
-          <Link to="/" className="brand-logo left">Logo</Link>
           <ul className="right ">
             <li>
               <a id="dropdown-trigger" href="#!" data-target="dropdown1">меню<i className="material-icons right">arrow_drop_down</i>
               </a>
             </li>
+            {
+              user
+              ? <li onClick={logOut}><Link to='/'>выйти</Link></li>
+              : <li><Link to='/signIn'>войти</Link></li>
+            }
           </ul>
         </div>
        </nav>
