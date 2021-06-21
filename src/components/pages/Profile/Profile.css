@@ -1,0 +1,13 @@
+/* ._profile__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+}
+
+._profile__avatar__wrap {
+  background-color: blueviolet;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+} */

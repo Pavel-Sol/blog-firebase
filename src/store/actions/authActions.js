@@ -45,7 +45,7 @@ export const getCurrentUserFromAuth = () => {
         // ...
       } else {
         // User is signed out
-        // ...
+        dispatch(isMainPreloader(false));
       }
     });
   };
