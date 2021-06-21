@@ -7,8 +7,10 @@ import Profile from './pages/Profile'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 
+import { useSelector } from 'react-redux';
+
 const AppRouter = () => {
-   const user = false
+   const user = useSelector((state) => state.authReducer.user);
 
    if(user) {
       return (

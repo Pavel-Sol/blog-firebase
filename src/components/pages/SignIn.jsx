@@ -1,3 +1,4 @@
+import 'materialize-css/dist/css/materialize.min.css';
 import { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,7 +25,9 @@ const SignIn = () => {
          <form action="">
             <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" />
             <input onChange={(e) => setPassword(e.target.value)} type="text" placeholder="pass" />
-            <button onClick={authorization}>войти</button>
+            <button 
+            onClick={authorization}
+            className='waves-effect waves-light btn'>войти</button>
          </form>
       </div>
    )

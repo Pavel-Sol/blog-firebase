@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import AppRouter from './components/AppRouter';
 import { getCurrentUserFromAuth } from './store/actions/authActions';
+import Navbar from './components/Navbar';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,7 +15,10 @@ function App() {
 
   return (
     <div className="App">
-      <AppRouter />
+      <Navbar />
+      <div className="container">
+        <AppRouter />
+      </div>
     </div>
   );
 }
