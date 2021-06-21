@@ -1,10 +1,17 @@
 import { auth, firestore } from './../../firebase/fbConfig';
 
-import { SET_USER } from './../actionTypes';
+import { SET_USER, IS_MAIN_PRELOADER } from './../actionTypes';
 
-export const setUserAC = (payload) => {
+const setUserAC = (payload) => {
   return {
     type: SET_USER,
+    payload,
+  };
+};
+
+export const isMainPreloader = (payload) => {
+  return {
+    type: IS_MAIN_PRELOADER,
     payload,
   };
 };
@@ -25,6 +32,7 @@ export const getCurrentUserFromAuth = () => {
               const userInfo = doc.data();
               console.log('Document data:', userInfo);
               dispatch(setUserAC(userInfo));
+              dispatch(isMainPreloader(false));
             } else {
               // doc.data() will be undefined in this case
               console.log('No such document!');
@@ -32,6 +40,7 @@ export const getCurrentUserFromAuth = () => {
           })
           .catch((error) => {
             console.log('Error getting document:', error);
+            dispatch(isMainPreloader(false));
           });
         // ...
       } else {

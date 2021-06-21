@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer.user);
 
-
      useEffect(() => {
        // ф-ия для Dropdown materialize
       var elems = document.querySelectorAll('#dropdown-trigger');
