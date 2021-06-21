@@ -2,7 +2,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 import { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {authorizeUser} from './../../store/actions/authActions'
+import {authorizeUser} from './../../../store/actions/authActions'
 
 const SignIn = () => {
 

@@ -1,11 +1,11 @@
 import { Route, Switch, Redirect} from 'react-router-dom';
 
-import Home from './../pages/Home';
-import Post from './../pages/Post';
-import CreatPost from './../pages/CreatePost'
-import Profile from './../pages/Profile'
-import SignIn from './../pages/SignIn'
-import SignUp from './../pages/SignUp'
+import Home from './../pages/Home/Home';
+import Post from './../pages/Post/Post';
+import CreatPost from './../pages/CreatePost/CreatePost'
+import Profile from './../pages/Profile/Profile'
+import SignIn from './../pages/SignIn/SignIn'
+import SignUp from './../pages/SignUp/SignUp'
 
 import { useSelector } from 'react-redux';
 

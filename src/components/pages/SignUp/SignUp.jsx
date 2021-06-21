@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {registerUser} from './../../store/actions/authActions'
+import {registerUser} from './../../../store/actions/authActions'
 
 
 const SignUp = () => { 
