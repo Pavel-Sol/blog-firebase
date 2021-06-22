@@ -34,9 +34,10 @@ const Navbar = () => {
               <li><Link to='/profile'>мой профиль</Link></li>
               <li onClick={logOut}><Link to='/'>выйти</Link></li>
           </ul>
-          : <ul id="dropdown1" className="dropdown-content">
+          : <ul id="dropdown1" className="dropdown-content _dropdown">
               <li><Link to='/'>главная</Link></li>
               <li><Link to='/signIn'>войти</Link></li>
+              <li><Link to='/signUp'>регистрация</Link></li>
           </ul>
         }
       

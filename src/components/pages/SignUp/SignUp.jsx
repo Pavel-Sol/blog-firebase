@@ -4,7 +4,7 @@ import {registerUser} from './../../../store/actions/authActions'
 
 
 const SignUp = () => { 
-   const [lastName, setLastName] = useState('');
+   const [userName, setUserName] = useState('');
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
@@ -14,7 +14,7 @@ const SignUp = () => {
   
     const registration = (e) => {
       e.preventDefault();
-      dispatch(registerUser(email, password, lastName))
+      dispatch(registerUser(email, password, userName))
       
     };
 
@@ -22,7 +22,7 @@ const SignUp = () => {
       <div>
          <h3>SignUp регистрация</h3>
          <form action="">
-            <input onChange={(e) => setLastName(e.target.value)} type="text" placeholder="name" />
+            <input onChange={(e) => setUserName(e.target.value)} type="text" placeholder="name" />
             <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" />
             <input onChange={(e) => setPassword(e.target.value)} type="text" placeholder="pass" />
             <button onClick={registration}>зарегистрироваться</button>

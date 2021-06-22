@@ -51,10 +51,10 @@ export const getCurrentUserFromAuth = () => {
   };
 };
 
-export const registerUser = (email, pass, lastName) => {
+export const registerUser = (email, password, userName) => {
   return (dispatch) => {
     auth
-      .createUserWithEmailAndPassword(email, pass)
+      .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         // ..
         var user = userCredential.user;
@@ -63,10 +63,10 @@ export const registerUser = (email, pass, lastName) => {
         firestore
           .collection('users')
           .doc(user.uid)
-          .set({ email, pass, lastName, id: user.uid })
+          .set({ email, password, userName, id: user.uid, userAvatarLink: null })
           .then(() => {
             console.log(`Document ${user.uid} successfully written! in firestore`);
-            dispatch(setUserAC({ email, lastName, id: user.uid }));
+            dispatch(setUserAC({ email, password, userName, id: user.uid, userAvatarLink: null }));
           })
           .catch((error) => {
             console.error('Error writing document: ', error);
@@ -131,5 +131,19 @@ export const logUserOut = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+};
+
+export const changeUserProfileInfo = ({
+  userName,
+  email,
+  password,
+  id,
+  userAvatarLink,
+  avatarFile,
+}) => {
+  return (dispatch) => {
+    console.log('work');
+    console.log(userName, email, password, id, userAvatarLink, avatarFile);
   };
 };
