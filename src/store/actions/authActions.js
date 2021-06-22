@@ -1,4 +1,4 @@
-import { auth, firestore } from './../../firebase/fbConfig';
+import { auth, firestore, storage } from './../../firebase/fbConfig';
 
 import { SET_USER, IS_MAIN_PRELOADER } from './../actionTypes';
 
@@ -134,6 +134,32 @@ export const logUserOut = () => {
   };
 };
 
+const uploadImgInFBStorage = (File, collectionName) => {
+  let storageRef = storage.ref(`${collectionName}/${File.name}`);
+  let uploadTask = storageRef.put(File);
+
+  return new Promise((res, rej) => {
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      },
+      (error) => {
+        if (error) {
+          console.log(error.message);
+        }
+      },
+      () => {
+        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          const imgUrl = downloadURL;
+          res(imgUrl);
+        });
+      },
+    );
+  });
+};
+
 export const changeUserProfileInfo = ({
   userName,
   email,
@@ -142,8 +168,10 @@ export const changeUserProfileInfo = ({
   userAvatarLink,
   avatarFile,
 }) => {
-  return (dispatch) => {
-    console.log('work');
-    console.log(userName, email, password, id, userAvatarLink, avatarFile);
+  return async (dispatch) => {
+    if (avatarFile) {
+      userAvatarLink = await uploadImgInFBStorage(avatarFile, 'avatars');
+      console.log(userAvatarLink);
+    }
   };
 };
