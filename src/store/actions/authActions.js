@@ -1,4 +1,5 @@
 import { auth, firestore, storage } from './../../firebase/fbConfig';
+import { uploadImgInFBStorage } from './../../firebase/fbUtils';
 
 import { SET_USER, IS_MAIN_PRELOADER } from './../actionTypes';
 
@@ -132,32 +133,6 @@ export const logUserOut = () => {
         console.log(error);
       });
   };
-};
-
-const uploadImgInFBStorage = (File, collectionName) => {
-  let storageRef = storage.ref(`${collectionName}/${File.name}`);
-  let uploadTask = storageRef.put(File);
-
-  return new Promise((res, rej) => {
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
-      },
-      (error) => {
-        if (error) {
-          console.log(error.message);
-        }
-      },
-      () => {
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          // const imgUrl = downloadURL;
-          res(downloadURL);
-        });
-      },
-    );
-  });
 };
 
 export const changeUserProfileInfo = ({
