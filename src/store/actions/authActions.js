@@ -54,6 +54,7 @@ export const getCurrentUserFromAuth = () => {
 
 export const registerUser = (email, password, userName) => {
   return (dispatch) => {
+    dispatch(isMainPreloader(true));
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
@@ -68,9 +69,11 @@ export const registerUser = (email, password, userName) => {
           .then(() => {
             console.log(`Document ${user.uid} successfully written! in firestore`);
             dispatch(setUserAC({ email, password, userName, id: user.uid, userAvatarLink: null }));
+            dispatch(isMainPreloader(false));
           })
           .catch((error) => {
             console.error('Error writing document: ', error);
+            dispatch(isMainPreloader(false));
           });
 
         // ...
@@ -79,6 +82,7 @@ export const registerUser = (email, password, userName) => {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(error.message);
+        dispatch(isMainPreloader(false));
         // ..
       });
   };
@@ -86,6 +90,7 @@ export const registerUser = (email, password, userName) => {
 
 export const authorizeUser = (email, password) => {
   return (dispatch) => {
+    dispatch(isMainPreloader(true));
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
@@ -103,13 +108,16 @@ export const authorizeUser = (email, password) => {
               const userInfo = doc.data();
               console.log('Document data:', userInfo);
               dispatch(setUserAC(userInfo));
+              dispatch(isMainPreloader(false));
             } else {
               // doc.data() will be undefined in this case
               console.log('No such document!');
+              dispatch(isMainPreloader(false));
             }
           })
           .catch((error) => {
             console.log('Error getting document:', error);
+            dispatch(isMainPreloader(false));
           });
       })
       .catch((error) => {
