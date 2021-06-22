@@ -33,6 +33,14 @@ const Profile = () => {
 
    return (
       <div className='_profile__container'>
+         <div className="rov">
+            {
+               user.userAvatarLink &&
+               <div className='_profile__avatar__wrap'>
+                  <img src={user.userAvatarLink} alt="" />
+               </div>
+            }
+         </div>
          <div className='row'>
             <div className="col s8 offset-s2">
 

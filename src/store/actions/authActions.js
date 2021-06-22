@@ -152,8 +152,8 @@ const uploadImgInFBStorage = (File, collectionName) => {
       },
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          const imgUrl = downloadURL;
-          res(imgUrl);
+          // const imgUrl = downloadURL;
+          res(downloadURL);
         });
       },
     );
@@ -173,5 +173,18 @@ export const changeUserProfileInfo = ({
       userAvatarLink = await uploadImgInFBStorage(avatarFile, 'avatars');
       console.log(userAvatarLink);
     }
+
+    console.log('далее');
+    firestore
+      .collection('users')
+      .doc(id)
+      .set({ userName, email, password, id, userAvatarLink })
+      .then(() => {
+        console.log(`Document ${id} successfully changed !!!!!`);
+        dispatch(setUserAC({ userName, email, password, id, userAvatarLink }));
+      })
+      .catch((error) => {
+        console.error('Error writing document: ', error);
+      });
   };
 };

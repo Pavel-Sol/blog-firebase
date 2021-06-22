@@ -5,3 +5,12 @@
 ._center {
   text-align: center;
 }
+
+._profile__avatar__wrap {
+  width: 200px;
+  height: 200px;
+}
+
+._profile__avatar__wrap img {
+  height: 100%;
+}
