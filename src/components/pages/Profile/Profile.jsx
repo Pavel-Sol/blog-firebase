@@ -3,6 +3,7 @@ import {useState} from 'react';
 
 import {changeUserProfileInfo} from './../../../store/actions/authActions'
 import './Profile.css'
+import avatarPhotoEmpty from './../../../assets/images/avatar.png'
 
 const Profile = () => {
    const user = useSelector((state) => state.authReducer.user);
@@ -33,20 +34,23 @@ const Profile = () => {
 
    return (
       <div className='_profile__container'>
-         <div className="rov">
-            {
-               user.userAvatarLink &&
-               <div className='_profile__avatar__wrap'>
-                  <img src={user.userAvatarLink} alt="" />
+         <div className="row">
+            <div className="_flex-center">
+            <div className='_profile__avatar__wrap'>
+                  <img src={
+                     user.userAvatarLink 
+                     ?user.userAvatarLink
+                     :avatarPhotoEmpty 
+                     } alt="" />
                </div>
-            }
+            </div>
          </div>
          <div className='row'>
-            <div className="col s8 offset-s2">
+            <div className="col s10 offset-s1">
 
                <div className="file-field input-field">
                   <div className="btn">
-                     <span>avatar</span>
+                     <span>добавить фото</span>
                      <input onInput={handleAvatarInput}  type="file" />
                   </div>
                   <div className="file-path-wrapper">
@@ -57,7 +61,7 @@ const Profile = () => {
             </div>
          </div>
          <div className="row">
-            <div className="input-field col s8 offset-s2">
+            <div className="input-field col s10 offset-s1">
                <i className="material-icons prefix">mode_edit</i>
                <textarea 
                   onChange={handleNameInput}
