@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 import {logUserOut} from  './../../store/actions/authActions'
 
-
 const Navbar = () => {
   const user = useSelector((state) => state.authReducer.user);
   const dispatch = useDispatch()
@@ -32,6 +31,7 @@ const Navbar = () => {
               <li><Link to='/'>главная</Link></li>
               <li className="divider"></li>
               <li><Link to='/profile'>мой профиль</Link></li>
+              <li><Link to='/createpost'>добавить пост</Link></li>
               <li onClick={logOut}><Link to='/'>выйти</Link></li>
           </ul>
           : <ul id="dropdown1" className="dropdown-content _dropdown">
@@ -43,6 +43,10 @@ const Navbar = () => {
       
        <nav>
         <div className="nav-wrapper">
+        {
+          user &&
+          <Link to='/profile'>{user.userName}</Link>
+        }
           <ul className="right ">
             <li>
               <a id="dropdown-trigger" href="#!" data-target="dropdown1">меню<i className="material-icons right">arrow_drop_down</i>

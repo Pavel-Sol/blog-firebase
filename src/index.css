@@ -18,3 +18,7 @@ code {
 .nav-wrapper {
   padding: 0px 20px;
 }
+
+._text-center {
+  text-align: center;
+}

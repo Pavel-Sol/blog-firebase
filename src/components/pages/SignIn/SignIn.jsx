@@ -1,6 +1,7 @@
 import 'materialize-css/dist/css/materialize.min.css';
 import { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {authorizeUser} from './../../../store/actions/authActions'
 
@@ -29,6 +30,11 @@ const SignIn = () => {
             onClick={authorization}
             className='waves-effect waves-light btn'>войти</button>
          </form>
+         <div className="row">
+            <div className="col s12 flow-text _text-center">
+               <Link to='/signUp'>Ещё нет аккаунта? Регистрация</Link>
+            </div>
+         </div>
       </div>
    )
 }

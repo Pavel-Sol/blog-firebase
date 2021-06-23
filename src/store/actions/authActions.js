@@ -152,6 +152,7 @@ export const changeUserProfileInfo = ({
   avatarFile,
 }) => {
   return async (dispatch) => {
+    dispatch(isMainPreloader(true));
     if (avatarFile) {
       userAvatarLink = await uploadImgInFBStorage(avatarFile, 'avatars');
       console.log(userAvatarLink);
@@ -165,9 +166,11 @@ export const changeUserProfileInfo = ({
       .then(() => {
         console.log(`Document ${id} successfully changed !!!!!`);
         dispatch(setUserAC({ userName, email, password, id, userAvatarLink }));
+        dispatch(isMainPreloader(false));
       })
       .catch((error) => {
         console.error('Error writing document: ', error);
+        dispatch(isMainPreloader(false));
       });
   };
 };
