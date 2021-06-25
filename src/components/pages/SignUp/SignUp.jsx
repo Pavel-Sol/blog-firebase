@@ -25,7 +25,7 @@ const SignUp = () => {
             <input onChange={(e) => setUserName(e.target.value)} type="text" placeholder="name" />
             <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" />
             <input onChange={(e) => setPassword(e.target.value)} type="text" placeholder="pass" />
-            <button onClick={registration}>зарегистрироваться</button>
+            <button className='waves-effect waves-light btn' onClick={registration}>зарегистрироваться</button>
          </form>
 
        {user && <h1>вы успешно прошли регистрацию</h1>}
