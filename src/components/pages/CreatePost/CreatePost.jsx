@@ -1,7 +1,7 @@
 import { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-
+import {addPost} from './../../../store/actions/postAction'
 import './CreatePost.css'
 
 const CreatePost = () => {
@@ -11,10 +11,11 @@ const [heading, setHeading] = useState('')
 const [postText, setPostText] = useState('')
 const [postImg,  setPostImg] = useState('')
 
-const addPost =() => {
-   console.log(heading)
-   console.log(postText)
-   console.log(postImg)
+const handlePost =() => {
+   // console.log(heading)
+   // console.log(postText)
+   // console.log(postImg)
+   dispatch(addPost(heading, postText, postImg))
 }
 
    return (
@@ -51,7 +52,7 @@ const addPost =() => {
          <div className="row">
             <div className="col s8 offset-s2 _center">
                <a className="waves-effect waves-light btn-small"
-               onClick={addPost}>добавить пост</a>
+               onClick={handlePost}>добавить пост</a>
             </div>
          </div>
       </div>
