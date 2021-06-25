@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './CreatePost.css'
 
 const CreatePost = () => {
+const dispatch = useDispatch()
 
 const [heading, setHeading] = useState('')
 const [postText, setPostText] = useState('')
@@ -23,19 +24,18 @@ const addPost =() => {
             <div className="input-field col s12">
                <input onChange={(e) => setHeading(e.target.value)} 
                id="heading" type="text" className="validate"/>
-               <label for="heading">Заголовок</label>
+               <label htmlFor="heading">Заголовок</label>
             </div>
          </div>
          <div className="row">
             <div className="input-field col s12">
                <textarea onChange={(e) => setPostText(e.target.value)} 
-                id="textarea1" class="materialize-textarea"></textarea>
+                id="textarea1" className="materialize-textarea"></textarea>
                <label htmlFor="textarea1">Текст</label>
             </div>
          </div>
          <div className='row'>
             <div className="col s12">
-            {/* onClick={addPost} */}
                <div className="file-field input-field">
                   <div className="btn">
                      <span>прикрепить фото</span>
