@@ -1,7 +1,7 @@
 import { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {addPost} from './../../../store/actions/postAction'
+import {addPost} from '../../../store/actions/postActions'
 import './CreatePost.css'
 
 const CreatePost = () => {

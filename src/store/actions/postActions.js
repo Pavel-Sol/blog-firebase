@@ -1,8 +1,8 @@
-import { auth, firestore, storage } from './../../firebase/fbConfig';
+import { auth, firestore, storage } from '../../firebase/fbConfig';
 import firebase from 'firebase';
-import { uploadImgInFBStorage } from './../../firebase/fbUtils';
+import { uploadImgInFBStorage } from '../../firebase/fbUtils';
 
-import { SET_POSTS } from './../actionTypes';
+import { SET_POSTS } from '../actionTypes';
 
 const setPostsAC = (payload) => {
   return {
@@ -41,9 +41,31 @@ export const addPost = (heading, postText, postImg) => {
           })
           .then(() => {
             console.log('пост сохранён');
+            dispatch(getPosts());
           });
       })
       .catch((er) => console.log(er));
     // -------------
+  };
+};
+
+export const getPosts = () => {
+  return (dispatch) => {
+    const arrData = [];
+    firestore
+      .collection('posts')
+      .get()
+      .then((querySnapshot) => {
+        // console.log(querySnapshot);
+        querySnapshot.forEach((doc) => {
+          // console.log(`${doc.id} => ${doc.data()}`);
+          // console.log(doc.data());
+          let data = doc.data();
+          arrData.push({ ...data, id: doc.id });
+        });
+
+        // console.log(arrData);
+        dispatch(setPostsAC(arrData));
+      });
   };
 };
