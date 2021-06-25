@@ -13,37 +13,37 @@ const setPostsAC = (payload) => {
 
 export const addPost = (heading, postText, postImg) => {
   return async (dispatch) => {
-    if (postImg) {
-      const postImgLink = await uploadImgInFBStorage(postImg, 'postImages');
-      console.log(postImgLink);
+    let postImgLink = null;
 
-      if (postImgLink) {
+    if (postImg) {
+      postImgLink = await uploadImgInFBStorage(postImg, 'postImages');
+      console.log(postImgLink);
+    }
+
+    firestore
+      .collection('posts')
+      .add({
+        heading,
+      })
+      .then((docRef) => {
+        console.log('post с id ', docRef.id);
+        //чтобы id автомаически сгенерился и попал отдельным полем в doc пока
+        // сделал через двойное сохранение
         firestore
           .collection('posts')
-          .add({
+          .doc(docRef.id)
+          .set({
             heading,
+            postText,
+            postImgLink,
+            idPost: docRef.id,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           })
-          .then((docRef) => {
-            console.log('post с id ', docRef.id);
-            //чтобы id автомаически сгенерился и попал отдельным полем в doc пока
-            // сделал через двойное сохранение
-            firestore
-              .collection('posts')
-              .doc(docRef.id)
-              .set({
-                heading,
-                postText,
-                postImgLink,
-                idPost: docRef.id,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              })
-              .then(() => {
-                console.log('пост сохранён');
-              });
-          })
-          .catch((er) => console.log(er));
-        // -------------
-      }
-    }
+          .then(() => {
+            console.log('пост сохранён');
+          });
+      })
+      .catch((er) => console.log(er));
+    // -------------
   };
 };
