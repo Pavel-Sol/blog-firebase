@@ -1,0 +1,16 @@
+._post-img {
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+._post-img img {
+  width: 100%;
+}
+
+._post-title {
+  font-size: 30px;
+}
+
+._post-text {
+  text-align: justify;
+}
