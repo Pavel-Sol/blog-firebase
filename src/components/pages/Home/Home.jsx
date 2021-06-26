@@ -17,7 +17,7 @@ const Home = () => {
    }
 
    return  (
-     <div className='_posts__container'>
+     <div className='_cards__container'>
         {
           posts.map(item => {
              return <PostCard

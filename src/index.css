@@ -26,31 +26,11 @@ code {
   text-align: center;
 }
 
-._posts__container {
-  padding: 50px 0px 0px 0px;
+._cards__container {
+  padding: 50px 0px 50px 0px;
   width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-._card {
-  width: 45%;
-  margin: 10px !important;
-}
-
-.card-image {
-  height: 200px;
-}
-
-.card-image img {
-  height: 100%;
-  object-fit: cover;
-}
-
-@media screen and (max-width: 600px) {
-  ._card {
-    width: 90%;
-  }
 }
