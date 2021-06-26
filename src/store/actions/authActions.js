@@ -22,7 +22,7 @@ export const getCurrentUserFromAuth = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         const id = user.uid;
-        console.log(id);
+        // console.log(id);
         // ...
         firestore
           .collection('users')

@@ -2,11 +2,18 @@ import { auth, firestore, storage } from '../../firebase/fbConfig';
 import firebase from 'firebase';
 import { uploadImgInFBStorage } from '../../firebase/fbUtils';
 
-import { SET_POSTS } from '../actionTypes';
+import { SET_POSTS, SET_CURRENT_POST } from '../actionTypes';
 
 const setPostsAC = (payload) => {
   return {
     type: SET_POSTS,
+    payload,
+  };
+};
+
+const setCerrentPostAC = (payload) => {
+  return {
+    type: SET_CURRENT_POST,
     payload,
   };
 };
@@ -17,7 +24,7 @@ export const addPost = (heading, postText, postImg) => {
 
     if (postImg) {
       postImgLink = await uploadImgInFBStorage(postImg, 'postImages');
-      console.log(postImgLink);
+      // console.log(postImgLink);
     }
 
     firestore
@@ -66,6 +73,29 @@ export const getPosts = () => {
 
         // console.log(arrData);
         dispatch(setPostsAC(arrData));
+      });
+  };
+};
+
+export const getCurrentPost = (id) => {
+  return (dispatch) => {
+    console.log(id);
+
+    var docRef = firestore.collection('posts').doc(id);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log('Document data:', doc.data());
+          dispatch(setCerrentPostAC(doc.data()));
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
+        }
+      })
+      .catch((error) => {
+        console.log('Error getting document:', error);
       });
   };
 };
