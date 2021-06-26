@@ -10,12 +10,11 @@ import MainPreloader from './components/MainPreloader/MainPreloader';
 function App() {
   const dispatch = useDispatch();
   const isMainPreloader = useSelector((state) => state.authReducer.isMainPreloader);
-  const posts = useSelector((state) => state.postReducer.posts);
-  console.log(posts);
 
   useEffect(() => {
     // проверяем есть ли текущий юзер в  системе
     dispatch(getCurrentUserFromAuth());
+    // получаем посты
     dispatch(getPosts());
   }, []);
 
