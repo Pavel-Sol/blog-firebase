@@ -17,13 +17,15 @@ const Home = () => {
    }
 
    return  (
-     <div>
+     <div className='_posts__container'>
         {
           posts.map(item => {
              return <PostCard
+               key={item.idPost}
                title={item.heading}
                text={item.postText}
                imgLink={item.postImgLink}
+               idPost={item.idPost}
              />
           }) 
         }

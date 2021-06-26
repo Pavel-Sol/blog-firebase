@@ -1,11 +1,11 @@
+import {Link} from 'react-router-dom';
+
 import postIMG from './../../assets/images/post-phone.jpg'
 
-const PostCard = ({title, text, imgLink}) => {
+const PostCard = ({title, text, imgLink, idPost}) => {
 
    return (
-      <div className="row">
-             <div className="col s12 m7">
-               <div className="card">
+               <div className="card _card">
                  <div className="card-image">
                    <img src={
                       imgLink 
@@ -19,12 +19,13 @@ const PostCard = ({title, text, imgLink}) => {
                     </div>
                    <p>{text}</p>
                  </div>
-                 <div className="card-action">
-                   <a href="#">подробнее</a>
-                 </div>
+                 <Link to={'/blogs/' + idPost}>
+                  <div className="card-action">
+                      подробнее
+                  </div>
+                 </Link>
                </div>
-             </div>
-           </div>
+          
    )
 }
 

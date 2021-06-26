@@ -24,7 +24,7 @@ const Navbar = () => {
     }
 
    return (
-     <div>
+     <div className='navbar-fixed'>
        {
           user
           ? <ul id="dropdown1" className="dropdown-content _dropdown">
