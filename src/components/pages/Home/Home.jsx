@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import postIMG from './../../../assets/images/post-phone.jpg'
+import PostCard from './../../PostCard/PostCard'
 
 
 const Home = () => {
@@ -20,28 +20,11 @@ const Home = () => {
      <div>
         {
           posts.map(item => {
-             return <div className="row">
-             <div className="col s12 m7">
-               <div className="card">
-                 <div className="card-image">
-                   <img src={
-                      item.postImgLink 
-                      ? item.postImgLink 
-                      : postIMG
-                   }/>
-                 </div>
-                 <div className="card-content">
-                    <div className="card-title">
-                        {item.heading}
-                    </div>
-                   <p>{item.postText}</p>
-                 </div>
-                 <div className="card-action">
-                   <a href="#">подробнее</a>
-                 </div>
-               </div>
-             </div>
-           </div>
+             return <PostCard
+               title={item.heading}
+               text={item.postText}
+               imgLink={item.postImgLink}
+             />
           }) 
         }
      </div>
