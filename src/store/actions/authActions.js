@@ -31,7 +31,7 @@ export const getCurrentUserFromAuth = () => {
           .then((doc) => {
             if (doc.exists) {
               const userInfo = doc.data();
-              console.log('Document data:', userInfo);
+              // console.log('Document data:', userInfo);
               dispatch(setUserAC(userInfo));
               dispatch(isMainPreloader(false));
             } else {

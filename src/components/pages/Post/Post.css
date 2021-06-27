@@ -14,3 +14,7 @@
 ._post-text {
   text-align: justify;
 }
+
+._post-author {
+  font-size: 18px;
+}

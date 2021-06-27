@@ -25,7 +25,7 @@ const setCerrentPostAC = (payload) => {
   };
 };
 
-export const addPost = (heading, postText, postImg, postAutor) => {
+export const addPost = (heading, postText, postImg, postAuthor) => {
   return async (dispatch) => {
     let postImgLink = null;
 
@@ -47,7 +47,7 @@ export const addPost = (heading, postText, postImg, postAutor) => {
           .collection('posts')
           .doc(docRef.id)
           .set({
-            postAutor,
+            postAuthor,
             heading,
             postText,
             postImgLink,
@@ -95,7 +95,7 @@ export const getCurrentPost = (id) => {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log('Document data:', doc.data());
+          // console.log('Document data:', doc.data());
           dispatch(setCerrentPostAC(doc.data()));
         } else {
           // doc.data() will be undefined in this case
@@ -122,19 +122,20 @@ export const getComments = (postId) => {
         dispatch(setCerrentPostCommentsAC(arrData));
       } else {
         console.log('no comments');
+        dispatch(setCerrentPostCommentsAC(null));
       }
     });
   };
 };
 
-export const addComment = (postId, commentText, commentAutor) => {
+export const addComment = (postId, commentText, commentAuthor) => {
   return (dispatch) => {
     database
       .ref('postComments/' + postId)
       .push()
       .set({
         commentText,
-        commentAutor,
+        commentAuthor,
       })
       .then(() => {
         getComments(postId);

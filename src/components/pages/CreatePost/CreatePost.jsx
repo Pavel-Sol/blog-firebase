@@ -6,7 +6,7 @@ import './CreatePost.css'
 
 const CreatePost = () => {
 const user = useSelector((state) => state.authReducer.user);
-console.log(user)
+// console.log(user.userName)
 const dispatch = useDispatch()
 
 const [heading, setHeading] = useState('')
