@@ -1,21 +1,29 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import './Post.css'
-import {getCurrentPost} from './../../../store/actions/postActions'
+import {getCurrentPost, addComment, getComments} from './../../../store/actions/postActions'
 
 
 const Post = (props) => {
    const id = props.match.params.id
    const currentPost = useSelector((state) => state.postReducer.currentPost);
-   console.log(currentPost);
+   const user = useSelector((state) => state.authReducer.user);
+   // console.log(currentPost);
+   
+   const [commentText, setCommentText] = useState('')
 
    const dispatch = useDispatch()
 
    useEffect(() => {
       dispatch(getCurrentPost(id))
+      dispatch(getComments(id))
    }, [])
    
+
+   const onAddComment = () => {
+      dispatch(addComment(id, commentText, user.userName))
+   }
 
    if(!currentPost) {
       return <h1>загрузка</h1>
@@ -29,13 +37,19 @@ const Post = (props) => {
                <img src={currentPost.postImgLink} alt="" />
             </div>
          }
-
+         <div> 
+            {`автор: ${currentPost.postAutor}`}
+         </div>
          <h1 className="_post-title">
             {currentPost.heading}
          </h1>
          <p className="_post-text">
             {currentPost.postText}
          </p>
+         <div className='commets-block'>
+            <input type="text" onChange={(e) => setCommentText(e.target.value)} />
+            <button onClick={onAddComment}>send</button>
+         </div>
       </div>
    )
 }

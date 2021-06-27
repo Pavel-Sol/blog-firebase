@@ -1,4 +1,4 @@
-import { auth, firestore, storage } from '../../firebase/fbConfig';
+import { auth, firestore, storage, database } from '../../firebase/fbConfig';
 import firebase from 'firebase';
 import { uploadImgInFBStorage } from '../../firebase/fbUtils';
 
@@ -18,7 +18,7 @@ const setCerrentPostAC = (payload) => {
   };
 };
 
-export const addPost = (heading, postText, postImg) => {
+export const addPost = (heading, postText, postImg, postAutor) => {
   return async (dispatch) => {
     let postImgLink = null;
 
@@ -40,6 +40,7 @@ export const addPost = (heading, postText, postImg) => {
           .collection('posts')
           .doc(docRef.id)
           .set({
+            postAutor,
             heading,
             postText,
             postImgLink,
@@ -96,6 +97,38 @@ export const getCurrentPost = (id) => {
       })
       .catch((error) => {
         console.log('Error getting document:', error);
+      });
+  };
+};
+
+export const getComments = (postId) => {
+  return (dispatch) => {
+    database.ref('postComments/' + postId).on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+
+      if (data === null) {
+        console.log('no comments');
+      }
+    });
+  };
+};
+
+export const addComment = (postId, commentText, commentAutor) => {
+  return (dispatch) => {
+    database
+      .ref('postComments/' + postId)
+      .push()
+      .set({
+        commentText,
+        commentAutor,
+      })
+      .then(() => {
+        getComments(postId);
+        console.log('success');
+      })
+      .catch((er) => {
+        console.log(er);
       });
   };
 };

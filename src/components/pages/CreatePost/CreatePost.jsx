@@ -5,6 +5,8 @@ import {addPost} from '../../../store/actions/postActions'
 import './CreatePost.css'
 
 const CreatePost = () => {
+const user = useSelector((state) => state.authReducer.user);
+console.log(user)
 const dispatch = useDispatch()
 
 const [heading, setHeading] = useState('')
@@ -12,10 +14,7 @@ const [postText, setPostText] = useState('')
 const [postImg,  setPostImg] = useState('')
 
 const handlePost =() => {
-   // console.log(heading)
-   // console.log(postText)
-   // console.log(postImg)
-   dispatch(addPost(heading, postText, postImg))
+   dispatch(addPost(heading, postText, postImg, user.userName))
 }
 
    return (
