@@ -47,7 +47,20 @@ const Post = (props) => {
          <p className="_post-text">
             {currentPost.postText}
          </p>
-         <div className='commets-block'>
+         <div className='_commets'>
+
+            <div className="_comments-list">
+               {
+                 currentPostСomments 
+                 ? currentPostСomments.map((comment) => {
+                    return <div key={comment.commentId}>
+                       <div>{comment.commentAutor}</div>
+                       <div>{comment.commentText}</div>
+                    </div>
+                 })
+                 : <div>комментариев нет</div>
+               }
+            </div>
             
             <input type="text" onChange={(e) => setCommentText(e.target.value)} />
             <button onClick={onAddComment}>send</button>
