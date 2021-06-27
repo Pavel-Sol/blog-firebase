@@ -2,11 +2,18 @@ import { auth, firestore, storage, database } from '../../firebase/fbConfig';
 import firebase from 'firebase';
 import { uploadImgInFBStorage } from '../../firebase/fbUtils';
 
-import { SET_POSTS, SET_CURRENT_POST } from '../actionTypes';
+import { SET_POSTS, SET_CURRENT_POST, SET_CURRENT_POST_COMMENTS } from '../actionTypes';
 
 const setPostsAC = (payload) => {
   return {
     type: SET_POSTS,
+    payload,
+  };
+};
+
+const setCerrentPostCommentsAC = (payload) => {
+  return {
+    type: SET_CURRENT_POST_COMMENTS,
     payload,
   };
 };
@@ -80,7 +87,7 @@ export const getPosts = () => {
 
 export const getCurrentPost = (id) => {
   return (dispatch) => {
-    console.log(id);
+    // console.log(id);
 
     var docRef = firestore.collection('posts').doc(id);
 
@@ -105,9 +112,15 @@ export const getComments = (postId) => {
   return (dispatch) => {
     database.ref('postComments/' + postId).on('value', (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
-
-      if (data === null) {
+      if (data !== null) {
+        const arrData = [];
+        for (let key in data) {
+          const itemData = { ...data[key], commentId: key };
+          arrData.push(itemData);
+        }
+        console.log(arrData);
+        dispatch(setCerrentPostCommentsAC(arrData));
+      } else {
         console.log('no comments');
       }
     });

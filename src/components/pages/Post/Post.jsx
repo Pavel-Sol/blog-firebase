@@ -8,8 +8,9 @@ import {getCurrentPost, addComment, getComments} from './../../../store/actions/
 const Post = (props) => {
    const id = props.match.params.id
    const currentPost = useSelector((state) => state.postReducer.currentPost);
+   const currentPostСomments = useSelector((state) => state.postReducer.currentPostСomments);
    const user = useSelector((state) => state.authReducer.user);
-   // console.log(currentPost);
+   console.log(currentPostСomments);
    
    const [commentText, setCommentText] = useState('')
 
@@ -38,7 +39,7 @@ const Post = (props) => {
             </div>
          }
          <div> 
-            {`автор: ${currentPost.postAutor}`}
+            {`автор поста: ${currentPost.postAutor}`}
          </div>
          <h1 className="_post-title">
             {currentPost.heading}
@@ -47,6 +48,7 @@ const Post = (props) => {
             {currentPost.postText}
          </p>
          <div className='commets-block'>
+            
             <input type="text" onChange={(e) => setCommentText(e.target.value)} />
             <button onClick={onAddComment}>send</button>
          </div>
