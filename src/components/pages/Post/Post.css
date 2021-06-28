@@ -19,3 +19,7 @@
 ._post-author {
   font-size: 18px;
 }
+
+._post_date {
+  color: gray;
+}

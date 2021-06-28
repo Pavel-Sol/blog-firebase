@@ -20,11 +20,29 @@ const PostComments = ({id}) => {
 
    const onAddComment = () => {
       dispatch(addComment(id, commentText, user.userName, user.userAvatarLink))
+      setCommentText('')
    }
 
    return(
-      <div className='_commets'>
+      <div className='_comments'>
             <p className='_comments-title left-align'>Комментарии</p>
+
+
+            {
+               user
+               ? <div className='_comment-form'>
+                     <textarea
+                        className ='materialize-textarea'
+                        value={commentText} type="text" 
+                        onChange={(e) => setCommentText(e.target.value)} />
+                     <button className='waves-effect waves-light btn-small'
+                     onClick={onAddComment}>добавить комментарий</button>
+                  </div>
+               : <div className='_comments-login'>
+                  зарегистрируйтесь, чтобы оставить комментарий
+               </div>
+            }
+
             <div className="_comments-list">
                {
                  currentPostСomments 
@@ -49,9 +67,6 @@ const PostComments = ({id}) => {
                  : <div>комментариев нет</div>
                }
             </div>
-            
-            <input type="text" onChange={(e) => setCommentText(e.target.value)} />
-            <button onClick={onAddComment}>send</button>
          </div>
    )
 }
