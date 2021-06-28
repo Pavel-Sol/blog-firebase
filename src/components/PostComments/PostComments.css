@@ -1,0 +1,28 @@
+._comment {
+  display: flex;
+  margin: 0px 0px 20px 0px;
+}
+
+._comments-title {
+  font-size: 20px;
+}
+._comment-avatar {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+._comment-avatar img {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+}
+
+._comment-desc {
+  /* font-size: 12px; */
+}
+
+._comment-author {
+  color: rgb(31, 122, 226);
+}

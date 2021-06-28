@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
+import {changeDateFormat} from './../../../utils/utils'
 import './Post.css'
 import {getCurrentPost} from './../../../store/actions/postActions'
 import PostComments from './../../PostComments/PostComments'
@@ -29,6 +30,11 @@ const Post = (props) => {
                <img src={currentPost.postImgLink} alt="" />
             </div>
          }
+         <div className="_post_date">
+            {
+               changeDateFormat(currentPost.timestamp.toMillis())
+            }
+         </div>
          <blockquote>
             <div className='_post-author left-align'> 
                {` Автор: ${currentPost.postAuthor}`}
@@ -40,7 +46,7 @@ const Post = (props) => {
          <p className="_post-text">
             {currentPost.postText}
          </p>
-         
+
          <PostComments id= {id}/>
       </div>
    )

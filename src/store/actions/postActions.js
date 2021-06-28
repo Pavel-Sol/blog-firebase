@@ -128,7 +128,7 @@ export const getComments = (postId) => {
   };
 };
 
-export const addComment = (postId, commentText, commentAuthor) => {
+export const addComment = (postId, commentText, commentAuthor, commentAuthorsAvatarLink) => {
   return (dispatch) => {
     database
       .ref('postComments/' + postId)
@@ -136,6 +136,8 @@ export const addComment = (postId, commentText, commentAuthor) => {
       .set({
         commentText,
         commentAuthor,
+        commentAuthorsAvatarLink,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
       })
       .then(() => {
         getComments(postId);
