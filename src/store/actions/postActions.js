@@ -1,6 +1,7 @@
-import { auth, firestore, storage, database } from '../../firebase/fbConfig';
+import { firestore, database } from '../../firebase/fbConfig';
 import firebase from 'firebase';
 import { uploadImgInFBStorage } from '../../firebase/fbUtils';
+import { ShowMainPreloader } from './genericActions';
 
 import { SET_POSTS, SET_CURRENT_POST, SET_CURRENT_POST_COMMENTS } from '../actionTypes';
 
@@ -27,6 +28,8 @@ const setCerrentPostAC = (payload) => {
 
 export const addPost = (heading, postText, postImg, postAuthor) => {
   return async (dispatch) => {
+    dispatch(ShowMainPreloader(true));
+
     let postImgLink = null;
 
     if (postImg) {
@@ -57,9 +60,13 @@ export const addPost = (heading, postText, postImg, postAuthor) => {
           .then(() => {
             console.log('пост сохранён');
             dispatch(getPosts());
+            dispatch(ShowMainPreloader(false));
           });
       })
-      .catch((er) => console.log(er));
+      .catch((er) => {
+        console.log(er);
+        dispatch(ShowMainPreloader(false));
+      });
     // -------------
   };
 };
@@ -119,7 +126,7 @@ export const getComments = (postId) => {
           arrData.push(itemData);
         }
         console.log(arrData);
-        dispatch(setCerrentPostCommentsAC(arrData));
+        dispatch(setCerrentPostCommentsAC(arrData.reverse()));
       } else {
         console.log('no comments');
         dispatch(setCerrentPostCommentsAC(null));

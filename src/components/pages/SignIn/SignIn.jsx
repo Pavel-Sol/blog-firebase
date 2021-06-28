@@ -31,7 +31,7 @@ const SignIn = () => {
             className='waves-effect waves-light btn'>войти</button>
          </form>
          <div className="row">
-            <div className="col s12 flow-text _text-center">
+            <div className="col s12 flow-text _text-center ">
                <Link to='/signUp'>Ещё нет аккаунта? Регистрация</Link>
             </div>
          </div>

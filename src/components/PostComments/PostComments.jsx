@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import {changeDateFormat} from './../../utils/utils'
 import './PostComments.css'
@@ -12,6 +13,7 @@ const PostComments = ({id}) => {
    const dispatch = useDispatch()
 
    const [commentText, setCommentText] = useState('')
+   
 
 
    useEffect(() => {
@@ -39,7 +41,7 @@ const PostComments = ({id}) => {
                      onClick={onAddComment}>добавить комментарий</button>
                   </div>
                : <div className='_comments-login'>
-                  зарегистрируйтесь, чтобы оставить комментарий
+                  <Link to='/signIn'>чтобы оставить комментарий, зайдите в систему</Link>
                </div>
             }
 

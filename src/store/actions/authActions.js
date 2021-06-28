@@ -1,18 +1,12 @@
-import { auth, firestore, storage } from './../../firebase/fbConfig';
-import { uploadImgInFBStorage } from './../../firebase/fbUtils';
+import { auth, firestore } from './../../firebase/fbConfig';
 
-import { SET_USER, IS_MAIN_PRELOADER } from './../actionTypes';
+import { uploadImgInFBStorage } from './../../firebase/fbUtils';
+import { SET_USER } from './../actionTypes';
+import { ShowMainPreloader } from './genericActions';
 
 const setUserAC = (payload) => {
   return {
     type: SET_USER,
-    payload,
-  };
-};
-
-export const isMainPreloader = (payload) => {
-  return {
-    type: IS_MAIN_PRELOADER,
     payload,
   };
 };
@@ -33,7 +27,7 @@ export const getCurrentUserFromAuth = () => {
               const userInfo = doc.data();
               // console.log('Document data:', userInfo);
               dispatch(setUserAC(userInfo));
-              dispatch(isMainPreloader(false));
+              dispatch(ShowMainPreloader(false));
             } else {
               // doc.data() will be undefined in this case
               console.log('No such document!');
@@ -41,12 +35,12 @@ export const getCurrentUserFromAuth = () => {
           })
           .catch((error) => {
             console.log('Error getting document:', error);
-            dispatch(isMainPreloader(false));
+            dispatch(ShowMainPreloader(false));
           });
         // ...
       } else {
         // User is signed out
-        dispatch(isMainPreloader(false));
+        dispatch(ShowMainPreloader(false));
       }
     });
   };
@@ -54,7 +48,7 @@ export const getCurrentUserFromAuth = () => {
 
 export const registerUser = (email, password, userName) => {
   return (dispatch) => {
-    dispatch(isMainPreloader(true));
+    dispatch(ShowMainPreloader(true));
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
@@ -69,11 +63,11 @@ export const registerUser = (email, password, userName) => {
           .then(() => {
             console.log(`Document ${user.uid} successfully written! in firestore`);
             dispatch(setUserAC({ email, password, userName, id: user.uid, userAvatarLink: null }));
-            dispatch(isMainPreloader(false));
+            dispatch(ShowMainPreloader(false));
           })
           .catch((error) => {
             console.error('Error writing document: ', error);
-            dispatch(isMainPreloader(false));
+            dispatch(ShowMainPreloader(false));
           });
 
         // ...
@@ -82,7 +76,7 @@ export const registerUser = (email, password, userName) => {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(error.message);
-        dispatch(isMainPreloader(false));
+        dispatch(ShowMainPreloader(false));
         // ..
       });
   };
@@ -90,7 +84,7 @@ export const registerUser = (email, password, userName) => {
 
 export const authorizeUser = (email, password) => {
   return (dispatch) => {
-    dispatch(isMainPreloader(true));
+    dispatch(ShowMainPreloader(true));
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
@@ -108,16 +102,16 @@ export const authorizeUser = (email, password) => {
               const userInfo = doc.data();
               console.log('Document data:', userInfo);
               dispatch(setUserAC(userInfo));
-              dispatch(isMainPreloader(false));
+              dispatch(ShowMainPreloader(false));
             } else {
               // doc.data() will be undefined in this case
               console.log('No such document!');
-              dispatch(isMainPreloader(false));
+              dispatch(ShowMainPreloader(false));
             }
           })
           .catch((error) => {
             console.log('Error getting document:', error);
-            dispatch(isMainPreloader(false));
+            dispatch(ShowMainPreloader(false));
           });
       })
       .catch((error) => {
@@ -152,7 +146,7 @@ export const changeUserProfileInfo = ({
   avatarFile,
 }) => {
   return async (dispatch) => {
-    dispatch(isMainPreloader(true));
+    dispatch(ShowMainPreloader(true));
     if (avatarFile) {
       userAvatarLink = await uploadImgInFBStorage(avatarFile, 'avatars');
       console.log(userAvatarLink);
@@ -166,11 +160,11 @@ export const changeUserProfileInfo = ({
       .then(() => {
         console.log(`Document ${id} successfully changed !!!!!`);
         dispatch(setUserAC({ userName, email, password, id, userAvatarLink }));
-        dispatch(isMainPreloader(false));
+        dispatch(ShowMainPreloader(false));
       })
       .catch((error) => {
         console.error('Error writing document: ', error);
-        dispatch(isMainPreloader(false));
+        dispatch(ShowMainPreloader(false));
       });
   };
 };

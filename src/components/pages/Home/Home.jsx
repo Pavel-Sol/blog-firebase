@@ -6,9 +6,9 @@ import PostCard from './../../PostCard/PostCard'
 const Home = () => {
 
    const posts = useSelector((state) => state.postReducer.posts);
-   // console.log(posts);
+   const isMainPreloader = useSelector((state) => state.genericReducer.isMainPreloader);
 
-   if(posts.length === 0) {
+   if(posts.length === 0 && isMainPreloader === false) {
       return(
          <h3>
             пока нет ни одного поста
