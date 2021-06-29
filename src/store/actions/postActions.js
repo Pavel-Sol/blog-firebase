@@ -2,6 +2,7 @@ import { firestore, database } from '../../firebase/fbConfig';
 import firebase from 'firebase';
 import { uploadImgInFBStorage } from '../../firebase/fbUtils';
 import { ShowMainPreloader } from './genericActions';
+import { alert } from './../../utils/alert';
 
 import { SET_POSTS, SET_CURRENT_POST, SET_CURRENT_POST_COMMENTS } from '../actionTypes';
 
@@ -34,7 +35,6 @@ export const addPost = (heading, postText, postImg, postAuthor) => {
 
     if (postImg) {
       postImgLink = await uploadImgInFBStorage(postImg, 'postImages');
-      // console.log(postImgLink);
     }
 
     firestore
@@ -61,11 +61,13 @@ export const addPost = (heading, postText, postImg, postAuthor) => {
             console.log('пост сохранён');
             dispatch(getPosts());
             dispatch(ShowMainPreloader(false));
+            alert('Ваш пост успешно добавлен');
           });
       })
       .catch((er) => {
         console.log(er);
         dispatch(ShowMainPreloader(false));
+        alert('Не удалось добавить пост, попробуйте позже');
       });
     // -------------
   };
@@ -149,8 +151,10 @@ export const addComment = (postId, commentText, commentAuthor, commentAuthorsAva
       .then(() => {
         getComments(postId);
         console.log('success');
+        alert('Ваш комментарий успешно добавлен');
       })
       .catch((er) => {
+        alert('Не удалось добавить комментарий');
         console.log(er);
       });
   };

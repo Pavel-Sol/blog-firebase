@@ -7,6 +7,8 @@ const Home = () => {
 
    const posts = useSelector((state) => state.postReducer.posts);
    const isMainPreloader = useSelector((state) => state.genericReducer.isMainPreloader);
+   console.log(isMainPreloader)
+   console.log(posts)
 
    if(posts.length === 0 && isMainPreloader === false) {
       return(

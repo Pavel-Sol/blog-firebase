@@ -6,6 +6,7 @@ import { getCurrentUserFromAuth } from './store/actions/authActions';
 import { getPosts } from './store/actions/postActions';
 import Navbar from './components/NavBar/Navbar';
 import MainPreloader from './components/MainPreloader/MainPreloader';
+// import Alert from './components/Alert/Alert';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* <Alert /> */}
       {isMainPreloader && <MainPreloader />}
       <Navbar />
       <div className="container">

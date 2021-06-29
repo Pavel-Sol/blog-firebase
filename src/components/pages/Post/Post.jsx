@@ -19,7 +19,7 @@ const Post = (props) => {
    
 
    if(!currentPost) {
-      return <h1>загрузка</h1>
+      return <p className='_post-loading center-align'>подождите несколько секунд...</p>
    }
 
    return (

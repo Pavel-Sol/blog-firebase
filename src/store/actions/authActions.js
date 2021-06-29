@@ -75,7 +75,7 @@ export const registerUser = (email, password, userName) => {
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
-        console.log(error.message);
+        console.log(errorMessage, errorCode);
         dispatch(ShowMainPreloader(false));
         // ..
       });
@@ -117,7 +117,9 @@ export const authorizeUser = (email, password) => {
       .catch((error) => {
         var errorCode = error.code;
         var errorMessage = error.message;
+        console.log(error);
         console.log(error.message);
+        dispatch(ShowMainPreloader(false));
       });
   };
 };
@@ -127,7 +129,6 @@ export const logUserOut = () => {
     auth
       .signOut()
       .then(() => {
-        // Sign-out successful.
         console.log('user out');
         dispatch(setUserAC(null));
       })
