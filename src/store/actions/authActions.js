@@ -1,5 +1,5 @@
 import { auth, firestore } from './../../firebase/fbConfig';
-
+import { alert } from './../../utils/alert';
 import { uploadImgInFBStorage } from './../../firebase/fbUtils';
 import { SET_USER } from './../actionTypes';
 import { ShowMainPreloader } from './genericActions';
@@ -54,7 +54,7 @@ export const registerUser = (email, password, userName) => {
       .then((userCredential) => {
         // ..
         var user = userCredential.user;
-        console.log('успешн. регистрация');
+        alert('успешная регистрация');
         console.log(user);
         firestore
           .collection('users')
@@ -73,9 +73,8 @@ export const registerUser = (email, password, userName) => {
         // ...
       })
       .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorMessage, errorCode);
+        let errorMessage = error.message;
+        console.log(errorMessage);
         dispatch(ShowMainPreloader(false));
         // ..
       });
@@ -90,7 +89,7 @@ export const authorizeUser = (email, password) => {
       .then((userCredential) => {
         // ..
         var user = userCredential.user;
-        console.log('успешная авторизация');
+        alert('успешная авторизация');
         console.log(user);
         const id = user.uid;
         firestore
@@ -162,10 +161,12 @@ export const changeUserProfileInfo = ({
         console.log(`Document ${id} successfully changed !!!!!`);
         dispatch(setUserAC({ userName, email, password, id, userAvatarLink }));
         dispatch(ShowMainPreloader(false));
+        alert('профиль успешно измннён');
       })
       .catch((error) => {
         console.error('Error writing document: ', error);
         dispatch(ShowMainPreloader(false));
+        alert('не удалось изменить профиль');
       });
   };
 };
