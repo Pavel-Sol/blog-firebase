@@ -23,11 +23,12 @@ const SignIn = () => {
    return (
       <div>
          <h3>SignIn aвторизация</h3>
-         <form action="">
-            <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" />
-            <input onChange={(e) => setPassword(e.target.value)} type="text" placeholder="pass" />
+         <form action="" onSubmit={authorization}>
+            <input required={true}
+               onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" />
+            <input required={true}
+               onChange={(e) => setPassword(e.target.value)} type="text" placeholder="pass" />
             <button 
-            onClick={authorization}
             className='waves-effect waves-light btn'>войти</button>
          </form>
          <div className="row">

@@ -26,17 +26,21 @@ const handlePost =(e) => {
             <div className="row">
                <div className="input-field col s12">
                   <input 
+                  required={true}
                   onChange={(e) => setHeading(e.target.value)} 
                   id="heading" type="text" className="validate"/>
                   <label htmlFor="heading">Заголовок</label>
+                  <span className="helper-text" data-error="отсутствует заголовок поста" data-success="right"></span>
                </div>
             </div>
             <div className="row">
                <div className="input-field col s12">
                   <textarea 
+                  required={true}
                   onChange={(e) => setPostText(e.target.value)} 
                   id="textarea1" className="materialize-textarea"></textarea>
                   <label htmlFor="textarea1">Текст</label>
+                  <span className="helper-text" data-error="отсутствует текст поста" data-success="right"></span>
                </div>
             </div>
             <div className='row'>

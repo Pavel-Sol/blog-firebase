@@ -20,9 +20,10 @@ const PostComments = ({id}) => {
       dispatch(getComments(id))
    }, [])
 
-   const onAddComment = () => {
+   const onAddComment = (e) => {
+      e.preventDefault()
       dispatch(addComment(id, commentText, user.userName, user.userAvatarLink))
-      setCommentText('')
+      e.target.reset()
    }
 
    return(
@@ -33,12 +34,16 @@ const PostComments = ({id}) => {
             {
                user
                ? <div className='_comment-form'>
-                     <textarea
-                        className ='materialize-textarea'
-                        value={commentText} type="text" 
-                        onChange={(e) => setCommentText(e.target.value)} />
-                     <button className='waves-effect waves-light btn-small'
-                     onClick={onAddComment}>добавить комментарий</button>
+                     <form onSubmit={onAddComment} action="">
+                        <div className="input-field">
+                           <textarea
+                              required={true}
+                              className ='materialize-textarea'
+                              type="text" 
+                              onChange={(e) => setCommentText(e.target.value)} />
+                        </div>
+                        <button type='submit' className='waves-effect waves-light btn-small'>добавить комментарий</button>
+                     </form>
                   </div>
                : <div className='_comments-login'>
                   <Link to='/signIn'>чтобы оставить комментарий, зайдите в систему</Link>

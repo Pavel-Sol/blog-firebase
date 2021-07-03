@@ -13,7 +13,10 @@ const Profile = () => {
    const [name, setName] = useState(user.userName)
    const [avatarFile, setAvatarFile] = useState('');
 
-   const onChangeProfileInfo =() => {
+
+
+   const onChangeProfileInfo =(e) => {
+      e.preventDefault()
       dispatch(changeUserProfileInfo({
          userName: name,
          email: user.email,
@@ -45,38 +48,40 @@ const Profile = () => {
                </div>
             </div>
          </div>
-         <div className='row'>
-            <div className="col s10 offset-s1">
+         <form action="" onSubmit={onChangeProfileInfo}>
+            <div className='row'>
+               <div className="col s10 offset-s1">
 
-               <div className="file-field input-field">
-                  <div className="btn">
-                     <span>добавить фото</span>
-                     <input onInput={handleAvatarInput}  type="file" />
+                  <div className="file-field input-field">
+                     <div className="btn">
+                        <span>добавить фото</span>
+                        <input onInput={handleAvatarInput}  type="file" />
+                     </div>
+                     <div className="file-path-wrapper">
+                        <input className="file-path validate" type="text" />
+                     </div>
                   </div>
-                  <div className="file-path-wrapper">
-                     <input className="file-path validate" type="text" />
-                  </div>
+               
                </div>
-            
             </div>
-         </div>
-         <div className="row">
-            <div className="input-field col s10 offset-s1">
-               <i className="material-icons prefix">mode_edit</i>
-               <textarea 
-                  onChange={handleNameInput}
-                id="icon_prefix2" className="materialize-textarea"
-                  defaultValue= {user && user.userName}>
-               </textarea>
-               <label className='_label' htmlFor="icon_prefix2">Name</label>
+            <div className="row">
+               <div className="input-field col s10 offset-s1">
+                  <i className="material-icons prefix">mode_edit</i>
+                  <textarea 
+                     required={true}
+                     onChange={handleNameInput}
+                     id="icon_prefix2" className="materialize-textarea"
+                     defaultValue= {user && user.userName}>
+                  </textarea>
+                  <label className='_label' htmlFor="icon_prefix2">Name</label>
+               </div>
             </div>
-         </div>
-         <div className="row">
-            <div className="col s8 offset-s2 _center">
-               <a className="waves-effect waves-light btn-small"
-               onClick={onChangeProfileInfo}>сохранить изменения</a>
+            <div className="row">
+               <div className="col s8 offset-s2 _center">
+                  <button className="waves-effect waves-light btn-small">сохранить изменения</button>
+               </div>
             </div>
-         </div>
+         </form>
       </div>
    )
 }
