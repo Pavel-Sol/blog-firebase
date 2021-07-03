@@ -75,6 +75,7 @@ export const registerUser = (email, password, userName) => {
       .catch((error) => {
         let errorMessage = error.message;
         console.log(errorMessage);
+        alert(`ошибка регистрации !!! ${errorMessage}`);
         dispatch(ShowMainPreloader(false));
         // ..
       });
@@ -114,10 +115,9 @@ export const authorizeUser = (email, password) => {
           });
       })
       .catch((error) => {
-        var errorCode = error.code;
         var errorMessage = error.message;
-        console.log(error);
         console.log(error.message);
+        alert(`ошибка авторизации !!! ${errorMessage}`);
         dispatch(ShowMainPreloader(false));
       });
   };
