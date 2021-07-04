@@ -23,12 +23,8 @@
   border-radius: 50%;
 }
 
-._comment-desc {
-  /* font-size: 12px; */
-}
-
 ._comment-author {
-  color: rgb(31, 122, 226);
+  color: rgb(18, 58, 104);
 }
 
 ._comment-date {

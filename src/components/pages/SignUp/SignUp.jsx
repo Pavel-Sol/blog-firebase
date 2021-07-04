@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {registerUser} from './../../../store/actions/authActions'
 
@@ -19,8 +19,8 @@ const SignUp = () => {
     };
 
    return (
-      <div>
-         <h3>SignUp регистрация</h3>
+      <div className='center-align'>
+         <h4>SignUp регистрация</h4>
          <form action="" onSubmit={registration}>
             <input required={true}
                onChange={(e) => setUserName(e.target.value)} type="text" placeholder="name" />
@@ -28,10 +28,8 @@ const SignUp = () => {
                onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" />
             <input required={true}
                onChange={(e) => setPassword(e.target.value)} type="text" placeholder="pass" />
-            <button className='waves-effect waves-light btn'>зарегистрироваться</button>
+            <button className='waves-effect waves-light btn _btn'>зарегистрироваться</button>
          </form>
-
-       {user && <h1>вы успешно прошли регистрацию</h1>}
       </div>
    )
 }

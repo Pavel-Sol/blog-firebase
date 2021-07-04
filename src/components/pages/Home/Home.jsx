@@ -11,7 +11,7 @@ const Home = () => {
    
    if(posts.length === 0 && isMainPreloader === false) {
       return(
-         <h3>
+         <h3 className='center-align'>
             пока нет ни одного поста
          </h3>
       )

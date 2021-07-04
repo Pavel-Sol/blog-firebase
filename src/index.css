@@ -34,3 +34,7 @@ code {
   flex-wrap: wrap;
   justify-content: center;
 }
+
+._btn {
+  margin: 30px 0px;
+}

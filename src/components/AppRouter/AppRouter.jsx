@@ -1,4 +1,5 @@
 import { Route, Switch, Redirect} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Home from './../pages/Home/Home';
 import Post from './../pages/Post/Post';
@@ -6,8 +7,6 @@ import CreatePost from './../pages/CreatePost/CreatePost'
 import Profile from './../pages/Profile/Profile'
 import SignIn from './../pages/SignIn/SignIn'
 import SignUp from './../pages/SignUp/SignUp'
-
-import { useSelector } from 'react-redux';
 
 const AppRouter = () => {
    const user = useSelector((state) => state.authReducer.user);

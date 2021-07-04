@@ -6,7 +6,6 @@ import './CreatePost.css'
 
 const CreatePost = () => {
 const user = useSelector((state) => state.authReducer.user);
-// console.log(user.userName)
 const dispatch = useDispatch()
 
 const [heading, setHeading] = useState('')
@@ -20,8 +19,8 @@ const handlePost =(e) => {
 }
 
    return (
-      <div>
-         <h3>добавьте новый пост</h3>
+      <div className='center-align'>
+         <h4>добавьте пост</h4>
          <form onSubmit={handlePost} action="">
             <div className="row">
                <div className="input-field col s12">

@@ -7,12 +7,11 @@ import avatarPhotoEmpty from './../../../assets/images/avatar.png'
 
 const Profile = () => {
    const user = useSelector((state) => state.authReducer.user);
-   console.log(user)
+   // console.log(user)
    const dispatch = useDispatch()
 
    const [name, setName] = useState(user.userName)
    const [avatarFile, setAvatarFile] = useState('');
-
 
 
    const onChangeProfileInfo =(e) => {
@@ -23,7 +22,7 @@ const Profile = () => {
          password: user.password,
          id: user.id,
          userAvatarLink: user.userAvatarLink,
-         avatarFile
+         avatarFile,
       }))
    }
 
@@ -34,6 +33,7 @@ const Profile = () => {
    const handleNameInput = (e) => {
       setName(e.target.value)
    }
+
 
    return (
       <div className='_profile__container'>

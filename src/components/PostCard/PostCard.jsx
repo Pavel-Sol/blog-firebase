@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom';
 
 import './PostCard.css'
-import postIMG from './../../assets/images/post-phone.jpg'
+import postIMG from './../../assets/images/post-img.jpg'
 
 const PostCard = ({title, text, imgLink, idPost}) => {
 
    return (
-    <div className="_card _text-center">
+    <div className="_card center-align">
       <div className="_card-image">
         <img src={
             imgLink 
@@ -15,7 +15,7 @@ const PostCard = ({title, text, imgLink, idPost}) => {
         }/>
       </div>
       <div className="_card-content">
-          <p className='_card-title'>
+          <p className='_card-title truncate'>
             {title}
           </p>
           <div className="_card-text">
