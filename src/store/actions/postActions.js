@@ -3,6 +3,7 @@ import firebase from 'firebase';
 import { uploadImgInFBStorage } from '../../firebase/fbUtils';
 import { ShowMainPreloader } from './genericActions';
 import { alert } from './../../utils/alert';
+import { generateId } from './../../utils/utils';
 
 import { SET_POSTS, SET_CURRENT_POST, SET_CURRENT_POST_COMMENTS } from '../actionTypes';
 
@@ -32,37 +33,28 @@ export const addPost = (heading, postText, postImg, postAuthor) => {
     dispatch(ShowMainPreloader(true));
 
     let postImgLink = null;
-
     if (postImg) {
       postImgLink = await uploadImgInFBStorage(postImg, 'postImages');
     }
 
+    let idPost = generateId();
+
     firestore
       .collection('posts')
-      .add({
+      .doc(idPost)
+      .set({
+        postAuthor,
         heading,
+        postText,
+        postImgLink,
+        idPost,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
-      .then((docRef) => {
-        console.log('post с id ', docRef.id);
-        //чтобы id автомаически сгенерился и попал отдельным полем в doc пока
-        // сделал через двойное сохранение
-        firestore
-          .collection('posts')
-          .doc(docRef.id)
-          .set({
-            postAuthor,
-            heading,
-            postText,
-            postImgLink,
-            idPost: docRef.id,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          })
-          .then(() => {
-            console.log('пост сохранён');
-            dispatch(getPosts());
-            dispatch(ShowMainPreloader(false));
-            alert('Ваш пост успешно добавлен');
-          });
+      .then(() => {
+        console.log('пост сохранён');
+        dispatch(getPosts());
+        dispatch(ShowMainPreloader(false));
+        alert('Ваш пост успешно добавлен');
       })
       .catch((er) => {
         console.log(er);

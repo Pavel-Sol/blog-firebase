@@ -20,3 +20,16 @@ export const changeDateFormat = (milliseconds) => {
 
   return `${dateArray[2]}/${monthList[dateArray[1]]}/${dateArray[3]} ${dateArray[4]}`;
 };
+
+// генерация рандомного id
+export const generateId = () => {
+  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const string_length = 12;
+  let randomstring = '';
+  for (let i = 0; i < string_length; i++) {
+    let rnum = Math.floor(Math.random() * chars.length);
+    randomstring += chars.substring(rnum, rnum + 1);
+  }
+
+  return randomstring;
+};
