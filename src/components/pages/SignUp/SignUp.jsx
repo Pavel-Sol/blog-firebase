@@ -1,5 +1,5 @@
 import { useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import {registerUser} from './../../../store/actions/authActions'
 
 
@@ -9,8 +9,6 @@ const SignUp = () => {
    const [password, setPassword] = useState('');
 
    const dispatch = useDispatch()
-   const user = useSelector((state) => state.authReducer.user);
-   console.log(user)
   
     const registration = (e) => {
       e.preventDefault();

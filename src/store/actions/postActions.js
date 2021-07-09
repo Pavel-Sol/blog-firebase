@@ -14,24 +14,26 @@ const setPostsAC = (payload) => {
   };
 };
 
-const setCerrentPostCommentsAC = (payload) => {
+const setCurrentPostCommentsAC = (payload) => {
   return {
     type: SET_CURRENT_POST_COMMENTS,
     payload,
   };
 };
 
-const setCerrentPostAC = (payload) => {
+const setCurrentPostAC = (payload) => {
   return {
     type: SET_CURRENT_POST,
     payload,
   };
 };
 
+// добавление поста
 export const addPost = (heading, postText, postImg, postAuthor) => {
   return async (dispatch) => {
     dispatch(ShowMainPreloader(true));
 
+    // проверяем прикреплено ли фото к посту, если да, то загружаем в fb storage
     let postImgLink = null;
     if (postImg) {
       postImgLink = await uploadImgInFBStorage(postImg, 'postImages');
@@ -65,41 +67,37 @@ export const addPost = (heading, postText, postImg, postAuthor) => {
   };
 };
 
+// получение всех постов из fb
 export const getPosts = () => {
   return (dispatch) => {
     const arrData = [];
+
     firestore
       .collection('posts')
       .get()
       .then((querySnapshot) => {
-        // console.log(querySnapshot);
+        // преобразуем объект с постами в массив объектов
         querySnapshot.forEach((doc) => {
-          // console.log(`${doc.id} => ${doc.data()}`);
-          // console.log(doc.data());
           let data = doc.data();
           arrData.push({ ...data, id: doc.id });
         });
 
-        // console.log(arrData);
         dispatch(setPostsAC(arrData));
       });
   };
 };
 
+// получение текущего поста для отображения на странице /postId
 export const getCurrentPost = (id) => {
   return (dispatch) => {
-    // console.log(id);
-
-    var docRef = firestore.collection('posts').doc(id);
+    let docRef = firestore.collection('posts').doc(id);
 
     docRef
       .get()
       .then((doc) => {
         if (doc.exists) {
-          // console.log('Document data:', doc.data());
-          dispatch(setCerrentPostAC(doc.data()));
+          dispatch(setCurrentPostAC(doc.data()));
         } else {
-          // doc.data() will be undefined in this case
           console.log('No such document!');
         }
       })
@@ -109,26 +107,29 @@ export const getCurrentPost = (id) => {
   };
 };
 
+// получение комментариев к посту
 export const getComments = (postId) => {
   return (dispatch) => {
     database.ref('postComments/' + postId).on('value', (snapshot) => {
       const data = snapshot.val();
       if (data !== null) {
         const arrData = [];
+
+        // преобразуем объект с комментами в массив
         for (let key in data) {
           const itemData = { ...data[key], commentId: key };
           arrData.push(itemData);
         }
-        console.log(arrData);
-        dispatch(setCerrentPostCommentsAC(arrData.reverse()));
+        dispatch(setCurrentPostCommentsAC(arrData.reverse()));
       } else {
         console.log('no comments');
-        dispatch(setCerrentPostCommentsAC(null));
+        dispatch(setCurrentPostCommentsAC(null));
       }
     });
   };
 };
 
+// добавление комментария
 export const addComment = (postId, commentText, commentAuthor, commentAuthorsAvatarLink) => {
   return (dispatch) => {
     database
@@ -151,3 +152,4 @@ export const addComment = (postId, commentText, commentAuthor, commentAuthorsAva
       });
   };
 };
+

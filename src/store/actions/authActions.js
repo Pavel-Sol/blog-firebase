@@ -11,13 +11,14 @@ const setUserAC = (payload) => {
   };
 };
 
+// получение текущего юзера в системе
 export const getCurrentUserFromAuth = () => {
   return (dispatch) => {
+    // получаем юзера из fb auth
     auth.onAuthStateChanged((user) => {
       if (user) {
         const id = user.uid;
-        // console.log(id);
-        // ...
+        // достаём доп инфу о юзере из fb firestore
         firestore
           .collection('users')
           .doc(id)
@@ -25,19 +26,16 @@ export const getCurrentUserFromAuth = () => {
           .then((doc) => {
             if (doc.exists) {
               const userInfo = doc.data();
-              // console.log('Document data:', userInfo);
               dispatch(setUserAC(userInfo));
               dispatch(ShowMainPreloader(false));
             } else {
-              // doc.data() will be undefined in this case
-              console.log('No such document!');
+              console.log('No such document! no info about user');
             }
           })
           .catch((error) => {
             console.log('Error getting document:', error);
             dispatch(ShowMainPreloader(false));
           });
-        // ...
       } else {
         // User is signed out
         dispatch(ShowMainPreloader(false));
@@ -46,16 +44,18 @@ export const getCurrentUserFromAuth = () => {
   };
 };
 
+// регистрация юзера
 export const registerUser = (email, password, userName) => {
   return (dispatch) => {
     dispatch(ShowMainPreloader(true));
+    // регистрация в fb auth
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        // ..
-        var user = userCredential.user;
+        let user = userCredential.user;
         alert('успешная регистрация');
-        console.log(user);
+
+        // запись доп информации в fb firestore
         firestore
           .collection('users')
           .doc(user.uid)
@@ -82,6 +82,7 @@ export const registerUser = (email, password, userName) => {
   };
 };
 
+// авторизация юзера
 export const authorizeUser = (email, password) => {
   return (dispatch) => {
     dispatch(ShowMainPreloader(true));
@@ -89,9 +90,8 @@ export const authorizeUser = (email, password) => {
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         // ..
-        var user = userCredential.user;
+        let user = userCredential.user;
         alert('успешная авторизация');
-        console.log(user);
         const id = user.uid;
         firestore
           .collection('users')
@@ -100,11 +100,9 @@ export const authorizeUser = (email, password) => {
           .then((doc) => {
             if (doc.exists) {
               const userInfo = doc.data();
-              console.log('Document data:', userInfo);
               dispatch(setUserAC(userInfo));
               dispatch(ShowMainPreloader(false));
             } else {
-              // doc.data() will be undefined in this case
               console.log('No such document!');
               dispatch(ShowMainPreloader(false));
             }
@@ -115,7 +113,7 @@ export const authorizeUser = (email, password) => {
           });
       })
       .catch((error) => {
-        var errorMessage = error.message;
+        let errorMessage = error.message;
         console.log(error.message);
         alert(`ошибка авторизации !!! ${errorMessage}`);
         dispatch(ShowMainPreloader(false));
@@ -123,12 +121,12 @@ export const authorizeUser = (email, password) => {
   };
 };
 
+// выход юзера
 export const logUserOut = () => {
   return (dispatch) => {
     auth
       .signOut()
       .then(() => {
-        console.log('user out');
         dispatch(setUserAC(null));
       })
       .catch((error) => {
@@ -137,6 +135,7 @@ export const logUserOut = () => {
   };
 };
 
+// изменение инфы в профиле
 export const changeUserProfileInfo = ({
   userName,
   email,
@@ -147,12 +146,11 @@ export const changeUserProfileInfo = ({
 }) => {
   return async (dispatch) => {
     dispatch(ShowMainPreloader(true));
+
     if (avatarFile) {
       userAvatarLink = await uploadImgInFBStorage(avatarFile, 'avatars');
-      console.log(userAvatarLink);
     }
 
-    console.log('далее');
     firestore
       .collection('users')
       .doc(id)

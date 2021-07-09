@@ -1,6 +1,6 @@
 import 'materialize-css/dist/css/materialize.min.css';
 import { useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import {authorizeUser} from './../../../store/actions/authActions'
@@ -11,8 +11,6 @@ const SignIn = () => {
    const [password, setPassword] = useState('');
 
    const dispatch = useDispatch()
-   const user = useSelector((state) => state.authReducer.user);
-   console.log(user)
 
    const authorization  = (e) => {
       e.preventDefault();

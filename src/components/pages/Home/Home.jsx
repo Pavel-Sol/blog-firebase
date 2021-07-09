@@ -7,7 +7,7 @@ const Home = () => {
 
    const posts = useSelector((state) => state.postReducer.posts);
    const isMainPreloader = useSelector((state) => state.genericReducer.isMainPreloader);
-   console.log(posts)
+   
    
    if(posts.length === 0 && isMainPreloader === false) {
       return(
@@ -20,7 +20,7 @@ const Home = () => {
    return  (
      <div className='_cards__container'>
         {
-          posts.map(item => {
+          posts.sort((a,b) => b.timestamp.seconds - a.timestamp.seconds).map(item => {
              return <PostCard
                key={item.idPost}
                title={item.heading}
@@ -28,7 +28,7 @@ const Home = () => {
                imgLink={item.postImgLink}
                idPost={item.idPost}
              />
-          }) 
+          })
         }
      </div>
    )

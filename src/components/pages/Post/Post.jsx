@@ -13,7 +13,6 @@ const Post = (props) => {
    const dispatch = useDispatch()
 
    useEffect(() => {
-      console.log('post effect')
       dispatch(getCurrentPost(id))
    }, [])
    
