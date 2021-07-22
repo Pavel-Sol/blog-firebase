@@ -7,7 +7,6 @@ import avatarPhotoEmpty from './../../../assets/images/avatar.png'
 
 const Profile = () => {
    const user = useSelector((state) => state.authReducer.user);
-   // console.log(user)
    const dispatch = useDispatch()
 
    const [name, setName] = useState(user.userName)

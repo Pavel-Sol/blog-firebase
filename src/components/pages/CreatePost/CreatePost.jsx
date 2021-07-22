@@ -2,7 +2,6 @@ import { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {addPost} from '../../../store/actions/postActions'
-import './CreatePost.css'
 
 const CreatePost = () => {
 const user = useSelector((state) => state.authReducer.user);
@@ -35,9 +34,10 @@ const handlePost =(e) => {
             <div className="row">
                <div className="input-field col s12">
                   <textarea 
-                  required={true}
-                  onChange={(e) => setPostText(e.target.value)} 
-                  id="textarea1" className="materialize-textarea"></textarea>
+                     required={true}
+                     onChange={(e) => setPostText(e.target.value)} 
+                     id="textarea1" className="materialize-textarea">
+                  </textarea>
                   <label htmlFor="textarea1">Текст</label>
                   <span className="helper-text" data-error="отсутствует текст поста" data-success="right"></span>
                </div>
@@ -58,8 +58,9 @@ const handlePost =(e) => {
             </div>
             <div className="row">
                <div className="col s8 offset-s2 _center">
-                  <button type='submit'
-                   className="waves-effect waves-light btn-small">добавить пост</button>
+                  <button type='submit' className="waves-effect waves-light btn-small">
+                     добавить пост
+                  </button>
                </div>
             </div>
          </form>

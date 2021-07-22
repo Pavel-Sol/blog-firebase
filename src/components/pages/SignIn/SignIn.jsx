@@ -26,8 +26,9 @@ const SignIn = () => {
                onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" />
             <input required={true}
                onChange={(e) => setPassword(e.target.value)} type="text" placeholder="pass" />
-            <button 
-            className='waves-effect waves-light btn _btn'>войти</button>
+            <button className='waves-effect waves-light btn _btn'>
+               войти
+            </button>
          </form>
          <div className="row">
             <div className="col s12 flow-text _text-center ">

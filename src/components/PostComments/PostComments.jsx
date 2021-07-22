@@ -8,14 +8,12 @@ import avatarPhotoEmpty from './../../assets/images/avatar.png'
 import {addComment, getComments} from './../../store/actions/postActions'
 
 const PostComments = ({id}) => {
+
    const currentPostСomments = useSelector((state) => state.postReducer.currentPostСomments);
    const user = useSelector((state) => state.authReducer.user);
    const dispatch = useDispatch()
-
    const [commentText, setCommentText] = useState('')
    
-
-
    useEffect(() => {
       dispatch(getComments(id))
    }, [])
@@ -29,7 +27,6 @@ const PostComments = ({id}) => {
    return(
       <div className='_comments'>
             <p className='_comments-title left-align'>Комментарии</p>
-
 
             {
                user
